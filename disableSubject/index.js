@@ -16,5 +16,10 @@ exports.handler = (event, context, callback) => {
         ':newFlag': false
     },
     UpdateExpression: 'SET #f = :newFlag'
-};
-docClient.update(params, callback);
+  };
+  var response = {
+    "headers": {},
+    "isBase64Encoded": false
+  };
+  dynamo.update(params, callback);
+}
