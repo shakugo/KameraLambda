@@ -52,6 +52,21 @@ Resources:
                 Path: /subjects
                 Method: POST
                 RestApiId: !Ref kameraApi
+  disableSubject:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.handler
+      CodeUri: disableSubject
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: subject
+      Events:
+        putSubjectApi:
+            Type: Api
+            Properties:
+                Path: /subjects/{subject_id}
+                Method: DELETE
+                RestApiId: !Ref kameraApi
   getSpots:
     Type: 'AWS::Serverless::Function'
     Properties:
