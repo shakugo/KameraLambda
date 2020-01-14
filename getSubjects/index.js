@@ -6,6 +6,8 @@ var dynamo = new AWS.DynamoDB.DocumentClient({
 exports.handler = (event, context, callback) => {
   var params = {
     TableName: "subject",
+    FilterExpression : "subject_flag = :val",
+    ExpressionAttributeValues : {":val" : true}
   };
   var response = {
     "headers": {},

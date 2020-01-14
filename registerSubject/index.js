@@ -13,6 +13,7 @@ exports.handler = (event, context, callback) => {
     Item: {
       'subject_name': obj.subject_name,
       'subject_id': obj.subject_id,
+      'subject_flag':true,
     }
   };
 
