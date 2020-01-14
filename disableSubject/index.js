@@ -21,5 +21,21 @@ exports.handler = (event, context, callback) => {
     "headers": {},
     "isBase64Encoded": false
   };
-  dynamo.update(params, callback);
+
+  var response = {
+    "headers": {},
+    "isBase64Encoded": false
+  };
+
+  dynamo.update(params, function (err, data) {
+    if (err) {
+      console.log(err);
+      response.statusCode = 400;
+      response.body = JSON.stringify(err);
+    } else {
+      response.statusCode = 200;
+      response.body = JSON.stringify(params);
+    }
+    context.done(null, response);
+  });
 }

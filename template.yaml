@@ -58,7 +58,7 @@ Resources:
       Handler: index.handler
       CodeUri: disableSubject
       Policies:
-        - DynamoDBReadPolicy:
+        - DynamoDBCrudPolicy:
             TableName: subject
       Events:
         putSubjectApi:
