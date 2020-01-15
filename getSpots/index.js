@@ -3,7 +3,7 @@ var dynamo = new AWS.DynamoDB.DocumentClient({
   region: 'ap-northeast-1'
 });
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context) => {
   var params = {
     TableName: "spot",
   };
@@ -12,15 +12,15 @@ exports.handler = (event, context, callback) => {
     "isBase64Encoded": false
   };
 
-  dynamo.scan(params, function (err, data) {
-    if (err) {
-      console.log(err);
-      response.statusCode = 400;
-      response.body = JSON.stringify(err);
-    } else {
-      response.statusCode = 200;
-      response.body = JSON.stringify(data);
-    }
-    context.done(null, response);
-  });
+  try {
+    const data = await dynamo.scan(params).promise();
+    response.statusCode = 200;
+    response.body = JSON.stringify(data);
+  }catch(e){
+    console.log(e);
+    response.statusCode = 500;
+    response.body = JSON.stringify(e);
+  }
+
+  return response;
 };
