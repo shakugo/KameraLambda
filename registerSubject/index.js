@@ -27,9 +27,8 @@ exports.handler = async (event, context) => {
     response.statusCode = 200;
     response.body = JSON.stringify(params);
   } catch(e) {
-    console.log(e);
     response.statusCode = 500;
-    response.body = JSON.stringify(err);
+    response.body = JSON.stringify(e.message);
   }
 
   return response;

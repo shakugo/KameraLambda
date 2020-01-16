@@ -6,7 +6,7 @@
     "axios": "^0.18.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "aws-sdk": "^2.603.0",
