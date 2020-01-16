@@ -1,14 +1,11 @@
-// JavaScript File
-// Load the AWS SDK for Node.js
-var AWS = require('aws-sdk');
-// Set the region
-var dynamo = new AWS.DynamoDB.DocumentClient({
+const AWS = require('aws-sdk');
+const dynamo = new AWS.DynamoDB.DocumentClient({
   region: 'ap-northeast-1'
 });
 
 exports.handler = async (event, context) => {
-  var obj = JSON.parse(event.body);
-  var params = {
+  const obj = JSON.parse(event.body);
+  const params = {
     TableName: 'subject',
     Item: {
       'subject_name': obj.subject_name,
@@ -17,7 +14,7 @@ exports.handler = async (event, context) => {
     }
   };
 
-  var response = {
+  let response = {
     "headers": {},
     "isBase64Encoded": false
   };

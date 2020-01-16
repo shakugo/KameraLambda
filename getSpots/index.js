@@ -1,13 +1,13 @@
-var AWS = require('aws-sdk');
-var dynamo = new AWS.DynamoDB.DocumentClient({
+const AWS = require('aws-sdk');
+const dynamo = new AWS.DynamoDB.DocumentClient({
   region: 'ap-northeast-1'
 });
 
 exports.handler = async (event, context) => {
-  var params = {
+  const params = {
     TableName: "spot",
   };
-  var response = {
+  let response = {
     "headers": {},
     "isBase64Encoded": false
   };
