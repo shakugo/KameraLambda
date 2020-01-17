@@ -22,4 +22,5 @@ jobs:
 workflows:
   my-workflow:
     jobs:
+      - unit_test
       - build_app
