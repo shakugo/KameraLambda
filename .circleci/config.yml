@@ -2,18 +2,18 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@0.1.19
 jobs:
-  aws-cli-example:
+  aws-cli-setup:
     executor: aws-cli/default
     steps:
       - checkout
       - aws-cli/setup:
-          profile-name: example
+          profile-name: default
       - run: echo "Run your code here"
 workflows:
   version: 2
   aws-cli:
     jobs:
-      - aws-cli-example
+      - aws-cli-setup
 
 # orbs:
 #   aws-cli: circleci/aws-cli@0.1.13
