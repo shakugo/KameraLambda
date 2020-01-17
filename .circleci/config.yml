@@ -15,7 +15,9 @@ jobs:
       - run: pip install --user aws-sam-cli
       - save_cache:
           key: aws-sam
-          paths: "./aws"
+          paths:
+            - "~/.aws"
+            - "~/.local"
   unit-test:
     executor: node/default
     steps:
