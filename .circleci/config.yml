@@ -40,9 +40,9 @@ workflows:
       - aws-cli-setup
       - unit-test
       - build-test:
-        requires:
-          - aws-cli-setup
-          - unit-test
+          requires:
+            - aws-cli-setup
+            - unit-test
 
 # orbs:
 #   aws-cli: circleci/aws-cli@0.1.13
