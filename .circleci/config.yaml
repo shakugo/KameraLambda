@@ -1,0 +1,8 @@
+version: 2.1
+orbs:
+  aws-serverless: circleci/aws-serverless@1.0.2
+workflows:
+  build_test_and_deploy:
+    jobs:
+      - aws-serverless/build:
+        template: ./template.yaml
