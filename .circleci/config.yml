@@ -14,8 +14,8 @@ jobs:
           profile-name: default
       - run: pip install --user aws-sam-cli
       - save_cache:
-        key: aws-sam
-        path: "./aws"
+          key: aws-sam
+          path: "./aws"
   unit-test:
     executor: node/default
     steps:
