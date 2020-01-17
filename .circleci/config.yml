@@ -13,8 +13,7 @@ workflows:
   version: 2
   aws-cli:
     jobs:
-      - aws-cli-example:
-          context: aws
+      - aws-cli-example
 
 # orbs:
 #   aws-cli: circleci/aws-cli@0.1.13
