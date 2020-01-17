@@ -14,7 +14,7 @@ jobs:
           profile-name: default
       - run: pip install --user aws-sam-cli
       - save_cache:
-          key: aws-sam
+          key: aws-sam-v1
           paths:
             - "~/.aws"
             - "~/.local"
