@@ -9,7 +9,7 @@ jobs:
     executor: aws-cli/default
     steps:
       - restore_cache:
-        key: aws-sam
+          key: aws-sam
       - aws-cli/setup:
           profile-name: default
       - run: pip install --user aws-sam-cli
