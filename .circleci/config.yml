@@ -2,11 +2,13 @@ version: 2.1
 orbs:
   aws-serverless: circleci/aws-serverless@1.0.2
 jobs:
-  test_my_api:
-    executor: aws-servlerless/default
+  build_app:
+    executor: aws-serverless/default
     steps:
-      - run: echo "Run your tests here"
+      - checkout
+      - aws-serverless/install
+      - run: sam build
 workflows:
-  build_test_and_deploy:
+  my-workflow:
     jobs:
-      - test_my_api
+      - build_app
