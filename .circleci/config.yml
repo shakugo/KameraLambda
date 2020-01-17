@@ -8,10 +8,15 @@ jobs:
   aws-cli-setup:
     executor: aws-cli/default
     steps:
+      - restore_cache:
+        key: aws-sam
       - aws-cli/setup:
           profile-name: default
       - run: pip install --user aws-sam-cli
-      - run: sam build
+      - save_cache:
+        key: aws-sam
+        path:
+          - "~/.local"
   unit-test:
     executor: node/default
     steps:
