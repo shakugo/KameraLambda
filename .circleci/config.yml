@@ -28,6 +28,7 @@ jobs:
 workflows:
   my-workflow:
     jobs:
-      - aws-cli
+      - aws-cli:
+        context: aws
       - unit_test
       - build_app
