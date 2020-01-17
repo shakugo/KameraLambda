@@ -8,17 +8,17 @@ jobs:
   aws-cli-setup:
     executor: aws-cli/default
     steps:
-      - checkout
       - aws-cli/setup:
           profile-name: default
       - run: echo "Run your code here"
   unit-test:
     executor: node/default
     steps:
+      - checkout
       - run: echo "Run your code here"
 workflows:
   version: 2
-  aws-cli:
+  test-and-deploy:
     jobs:
       - aws-cli-setup
       - unit-test
