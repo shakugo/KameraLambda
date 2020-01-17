@@ -31,7 +31,6 @@ jobs:
     steps:
       - restore_cache:
           key: aws-sam-v1
-      - run: sam validate
       - run: sam build
 workflows:
   version: 2
