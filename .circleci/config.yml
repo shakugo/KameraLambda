@@ -1,7 +1,18 @@
 version: 2.1
 orbs:
+  node: circleci/node@1.1.6
   aws-serverless: circleci/aws-serverless@1.0.2
 jobs:
+  unit_test:
+    executor:
+      name: node/default
+      tag: '10.4'
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: yarn install
+      - run: yarn test
   build_app:
     executor: aws-serverless/default
     steps:
