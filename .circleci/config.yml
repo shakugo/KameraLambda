@@ -10,6 +10,7 @@ jobs:
     steps:
       - aws-cli/setup:
           profile-name: default
+      - run: pip install sam-cli
       - run: echo "Run your code here"
   unit-test:
     executor: node/default
