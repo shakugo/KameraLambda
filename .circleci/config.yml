@@ -27,20 +27,19 @@ jobs:
             - run: yarn install
       - run: yarn test
   build-test:
-    executor: aws-cli/default
+    executor: aws-servlerless/default
     steps:
-      - restore_cache:
-          key: aws-sam-v1
-      - run: sam build
+      - checkout
+      - aws-serverless/build:
+          template: template.yaml
+
 workflows:
   version: 2
   test-and-deploy:
     jobs:
-      - aws-cli-setup
       - unit-test
       - build-test:
           requires:
-            - aws-cli-setup
             - unit-test
 
 # orbs:
