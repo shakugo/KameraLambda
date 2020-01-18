@@ -13,6 +13,11 @@ jobs:
           steps:
             - run: yarn install
       - run: yarn test
+  build:
+    docker:
+      - image: cleartone1216/aws-sam-cli:0.0.1
+    steps:
+      - run: sam --version
   build-test:
     executor: aws-serverless/default
     steps:
@@ -32,6 +37,7 @@ workflows:
   test-and-deploy:
     jobs:
       - unit-test
-      - build-test:
-          requires:
-            - unit-test
+      - build
+      # - build-test:
+      #     requires:
+      #       - unit-test
