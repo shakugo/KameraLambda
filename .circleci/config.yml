@@ -26,6 +26,7 @@ jobs:
       - image: cleartone1216/aws-sam-cli:0.0.2
     steps:
       - checkout
+      - run: chmod +x ./.circleci/getResult.sh
       - run: ls -alt
 workflows:
   version: 2
