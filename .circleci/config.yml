@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - aws-serverless/install
-      - tun: sam validate
+      - run: sam validate
       - run: sam build
 workflows:
   version: 2
