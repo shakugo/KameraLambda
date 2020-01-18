@@ -20,6 +20,8 @@ jobs:
       - run: sam build
       - run: sam deploy
   post-output:
+    docker:
+      - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
       - run: aws cloudformation describe-stacks --stack-name KameraLambda
 workflows:
