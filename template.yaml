@@ -7,7 +7,7 @@ Globals:
     Runtime: nodejs10.x
     Timeout: 3
     MemorySize: 128
-    Description: Created by SAM template
+    Description: Created by SAM template yaml
 
 Resources:
   # API Gateway

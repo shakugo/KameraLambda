@@ -17,6 +17,7 @@ jobs:
     executor: aws-serverless/default
     steps:
       - checkout
+      - run: sudo chmod -R 775 /home/circleci/.cache
       - aws-serverless/install
       - run: sam validate
       - run: sam build
