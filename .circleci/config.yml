@@ -11,27 +11,13 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: yarn install
-      - run: yarn test
-  build:
+            - run: npm install
+      - run: npm test
+  build-test:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
       - checkout
-      - run: sam validate
-      - run: sam build
-      - run: sam deploy
-  build-test:
-    executor: aws-serverless/default
-    steps:
-      - checkout
-      - run: sudo chmod -R 775 /home/circleci/.cache
-      - restore_cache:
-          key: home_brew
-      - aws-serverless/install
-      - save_cache:
-          key: home_brew
-          paths: /home/circleci/.cache
       - run: sam validate
       - run: sam build
       - run: sam deploy
@@ -40,7 +26,6 @@ workflows:
   test-and-deploy:
     jobs:
       - unit-test
-      - build
-      # - build-test:
-      #     requires:
-      #       - unit-test
+      - build-test:
+          requires:
+            - unit-test
