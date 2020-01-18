@@ -11,6 +11,8 @@ jobs:
           steps:
             - run: npm install
       - run: npm test
+      - store_test_results:
+          path: coverage
   build-test:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.1
@@ -24,7 +26,7 @@ jobs:
       - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
       - run: aws cloudformation describe-stacks --stack-name KameraLambda | jq .Stacks.Outputs
-      - run: aws apigateway get-api-key --api-key v9f56kys2a --include-value
+      - run: aws apigateway get-api-key --api-key v9f56kys2a --include-value | jq
 workflows:
   version: 2
   test-and-deploy:
