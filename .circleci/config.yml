@@ -25,10 +25,8 @@ jobs:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.2
     steps:
-      - run: echo 'export ApiKeyID=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiKeyID")) | .[].OutputValue'`' >> $BASH_ENV
-      - run: echo 'export ApiGatewayEndpoint=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiGatewayEndpoint")) | .[].OutputValue'`' >> $BASH_ENV
-      - run: echo $ApiKeyID
-      - run: echo 'export ApiKey=`aws apigateway get-api-key --api-key $ApiKeyID --include-value | jq -r .value`' >> $BASH_ENV
+      - checkout
+      - run: ls -alt
 workflows:
   version: 2
   test-and-deploy:
