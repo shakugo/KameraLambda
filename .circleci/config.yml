@@ -19,6 +19,9 @@ jobs:
       - run: sam validate
       - run: sam build
       - run: sam deploy
+  post-output:
+    steps:
+      - run: aws cloudformation describe-stacks --stack-name KameraLambda
 workflows:
   version: 2
   test-and-deploy:
@@ -27,3 +30,6 @@ workflows:
       - build-test:
           requires:
             - unit-test
+      - post-output:
+          requires:
+            - build-test
