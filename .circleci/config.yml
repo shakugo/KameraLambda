@@ -17,7 +17,10 @@ jobs:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
-      - run: sam --version
+      - checkout
+      - run: sam validate
+      - run: sam build
+      - run: sam deploy
   build-test:
     executor: aws-serverless/default
     steps:
