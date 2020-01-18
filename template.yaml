@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: An AWS Serverless Specification template describing KameraYohou.
+Description: An AWS Serverless Specification template for KameraYohou.
 
 Globals:
   Function:
     Runtime: nodejs10.x
     Timeout: 3
     MemorySize: 128
-    Description: Created by SAM template yaml
+    Description: Functions Created by SAM template yaml
 
 Resources:
   # API Gateway
@@ -16,7 +16,7 @@ Resources:
     Properties:
       # Auth: ApiAuth
       Name: KameraYohouAPI
-      StageName: develop
+      StageName: feature
       EndpointConfiguration: REGIONAL
       Auth:
         ApiKeyRequired: true
@@ -114,14 +114,14 @@ Resources:
       Enabled: true
       StageKeys:
         - RestApiId: !Ref kameraApi
-          StageName: !Ref kameraApidevelopStage
+          StageName: !Ref kameraApifeatureStage
   FlutterApiUsagePlan:
     Type: AWS::ApiGateway::UsagePlan
     DependsOn: kameraApi
     Properties:
       ApiStages:
       - ApiId: !Ref kameraApi
-        Stage: !Ref kameraApidevelopStage
+        Stage: !Ref kameraApifeatureStage
       Throttle:
         BurstLimit: 20
         RateLimit: 10
@@ -139,4 +139,4 @@ Resources:
 Outputs:
   ApiGatewayEndpoint:
     Description: The Endpoint of the API Gateway
-    Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/develop/
+    Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/feature/
