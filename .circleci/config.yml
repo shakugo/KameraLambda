@@ -15,7 +15,7 @@ jobs:
           path: coverage
   build-test:
     docker:
-      - image: cleartone1216/aws-sam-cli:0.0.1
+      - image: cleartone1216/aws-sam-cli:0.0.2
     steps:
       - checkout
       - run: sam validate
@@ -23,7 +23,7 @@ jobs:
       - run: sam deploy
   post-output:
     docker:
-      - image: cleartone1216/aws-sam-cli:0.0.1
+      - image: cleartone1216/aws-sam-cli:0.0.2
     steps:
       - run: aws cloudformation describe-stacks --stack-name KameraLambda | jq .Stacks.Outputs
       - run: aws apigateway get-api-key --api-key v9f56kys2a --include-value | jq
