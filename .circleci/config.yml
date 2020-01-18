@@ -26,6 +26,7 @@ jobs:
           paths: /home/circleci/.cache
       - run: sam validate
       - run: sam build
+      - run: sam deploy
 workflows:
   version: 2
   test-and-deploy:
