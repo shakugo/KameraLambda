@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "cloud9-KameraLambda"
+stack_name = "KameraLambda"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-5bqjnpv2tjq6"
-s3_prefix = "cloud9-KameraLambda"
+s3_prefix = "KameraLambda"
 region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
 notification-arns = "arn:aws:sns:ap-northeast-1:907616993345:Slack"
