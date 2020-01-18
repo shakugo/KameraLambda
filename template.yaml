@@ -139,7 +139,7 @@ Resources:
 Outputs:
   ApiGatewayEndpoint:
     Description: The Endpoint of the API Gateway
-    Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/develop/
+    Value: !Ref kameraApi
   ApiKeyID:
     Description: The API Key ID
     Value: !Ref FlutterApiKey
