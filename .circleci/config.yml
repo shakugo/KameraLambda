@@ -23,7 +23,7 @@ jobs:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
-      - run: aws cloudformation describe-stacks --stack-name KameraLambda
+      - run: aws cloudformation describe-stacks --stack-name KameraLambda | jq .Stacks.Outputs
       - run: aws apigateway get-api-key --api-key v9f56kys2a --include-value
 workflows:
   version: 2
