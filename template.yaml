@@ -137,8 +137,8 @@ Resources:
       UsagePlanId: !Ref FlutterApiUsagePlan
 
 Outputs:
-  ApiGatewayEndpoint:
-    Description: The Endpoint of the API Gateway
+  ApiGatewayID:
+    Description: The API Gateway ID
     Value: !Ref kameraApi
   ApiKeyID:
     Description: The API Key ID
