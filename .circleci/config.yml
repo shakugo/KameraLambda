@@ -32,10 +32,10 @@ workflows:
   version: 2
   test-and-deploy:
     jobs:
-      # - unit-test
-      # - build-test:
-      #     requires:
-      #       - unit-test
+      - unit-test
+      - build-test:
+          requires:
+            - unit-test
       - post-output
-          # requires:
-          #   - build-test
+          requires:
+            - build-test
