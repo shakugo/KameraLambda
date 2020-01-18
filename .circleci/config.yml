@@ -27,6 +27,7 @@ jobs:
     steps:
       - run: ApiKeyID=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiKeyID")) | .[].OutputValue'`
       - run: ApiGatewayEndpoint=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiGatewayEndpoint")) | .[].OutputValue'`
+      - run: echo ${ApiKeyID}
       - run: apikey=`aws apigateway get-api-key --api-key ${ApiKeyID} --include-value | jq -r .value`
 workflows:
   version: 2
