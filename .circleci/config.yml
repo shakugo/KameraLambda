@@ -25,10 +25,10 @@ jobs:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.2
     steps:
-      - run: ApiKeyID=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiKeyID")) | .[].OutputValue'`
-      - run: ApiGatewayEndpoint=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiGatewayEndpoint")) | .[].OutputValue'`
+      - run: export ApiKeyID=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiKeyID")) | .[].OutputValue'`
+      - run: export ApiGatewayEndpoint=`aws cloudformation describe-stacks --stack-name KameraLambda | jq -r '.Stacks[].Outputs | map(select(.OutputKey == "ApiGatewayEndpoint")) | .[].OutputValue'`
       - run: echo $ApiKeyID
-      - run: ApiKey=`aws apigateway get-api-key --api-key $ApiKeyID --include-value | jq -r .value`
+      - run: export ApiKey=`aws apigateway get-api-key --api-key $ApiKeyID --include-value | jq -r .value`
 workflows:
   version: 2
   test-and-deploy:
