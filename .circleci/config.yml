@@ -18,7 +18,12 @@ jobs:
     steps:
       - checkout
       - run: sudo chmod -R 775 /home/circleci/.cache
+      - restore_cache:
+          key: home_brew
       - aws-serverless/install
+      - save_cache:
+          key: home_brew
+          paths: /home/circleci/.cache
       - run: sam validate
       - run: sam build
 workflows:
@@ -29,37 +34,3 @@ workflows:
       - build-test:
           requires:
             - unit-test
-
-# orbs:
-#   aws-cli: circleci/aws-cli@0.1.13
-#   # node: circleci/node@1.1.6
-#   # aws-serverless: circleci/aws-serverless@1.0.2
-# jobs:
-#   aws-configure:
-#     executor: aws-cli/default
-#     steps:
-#       - checkout
-#       - aws-cli/setup:
-#           profile-name: default
-#       - run: aws --version
-#   unit_test:
-#     executor: node/default
-#     steps:
-#       - checkout
-#       - node/with-cache:
-#           steps:
-#             - run: yarn install
-#       - run: yarn test
-#   build_app:
-#     executor: aws-serverless/default
-#     steps:
-#       - checkout
-#       - aws-serverless/install
-#       - run: sam build
-# workflows:
-#   version: 2
-#   my-workflow:
-#     jobs:
-#       - aws-configure
-#       # - unit_test
-#       # - build_app
