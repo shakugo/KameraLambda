@@ -16,7 +16,7 @@ Resources:
     Properties:
       # Auth: ApiAuth
       Name: KameraYohouAPI
-      StageName: feature
+      StageName: develop
       EndpointConfiguration: REGIONAL
       Auth:
         ApiKeyRequired: true
@@ -114,14 +114,14 @@ Resources:
       Enabled: true
       StageKeys:
         - RestApiId: !Ref kameraApi
-          StageName: !Ref kameraApifeatureStage
+          StageName: !Ref kameraApidevelopStage
   FlutterApiUsagePlan:
     Type: AWS::ApiGateway::UsagePlan
     DependsOn: kameraApi
     Properties:
       ApiStages:
       - ApiId: !Ref kameraApi
-        Stage: !Ref kameraApifeatureStage
+        Stage: !Ref kameraApidevelopStage
       Throttle:
         BurstLimit: 20
         RateLimit: 10
@@ -139,4 +139,7 @@ Resources:
 Outputs:
   ApiGatewayEndpoint:
     Description: The Endpoint of the API Gateway
-    Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/feature/
+    Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/develop/
+  ApiKeyID:
+    Description: The API Key ID
+    Value: !Ref FlutterApiKey
