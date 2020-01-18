@@ -24,6 +24,7 @@ jobs:
       - image: cleartone1216/aws-sam-cli:0.0.1
     steps:
       - run: aws cloudformation describe-stacks --stack-name KameraLambda
+      - run: aws apigateway get-api-key --api-key <your api key id> --include-value
 workflows:
   version: 2
   test-and-deploy:

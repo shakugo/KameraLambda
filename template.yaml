@@ -142,4 +142,4 @@ Outputs:
     Value: !Sub https://${kameraApi}.execute-api.${AWS::Region}.amazonaws.com/develop/
   ApiKeyID:
     Description: The API Key ID
-    Value: !GetAtt FlutterApiKey.Name
+    Value: !Ref FlutterApiKey
