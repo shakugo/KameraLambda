@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - run: chmod +x ./.circleci/getResult.sh
-      - run: ls -alt
+      - run: ./.circleci/getResult.sh
 workflows:
   version: 2
   test-and-deploy:
