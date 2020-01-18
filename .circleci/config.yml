@@ -30,6 +30,7 @@ jobs:
     executor: aws-serverless/default
     steps:
       - checkout
+      - aws-serverless/install
       - aws-serverless/build:
           template: template.yaml
 
