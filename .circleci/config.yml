@@ -5,19 +5,6 @@ orbs:
   aws-serverless: circleci/aws-serverless@1.0.2
 
 jobs:
-  aws-cli-setup:
-    executor: aws-cli/default
-    steps:
-      - restore_cache:
-          key: aws-sam-v1
-      - aws-cli/setup:
-          profile-name: default
-      - run: pip install --user aws-sam-cli
-      - save_cache:
-          key: aws-sam-v1
-          paths:
-            - "~/.aws"
-            - "~/.local"
   unit-test:
     executor: node/default
     steps:
@@ -31,8 +18,8 @@ jobs:
     steps:
       - checkout
       - aws-serverless/install
-      - sam validate
-      - sam build
+      - tun: sam validate
+      - run: sam build
 workflows:
   version: 2
   test-and-deploy:
