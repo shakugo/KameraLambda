@@ -13,6 +13,7 @@ jobs:
       - run: npm test
       - store_test_results:
           path: coverage
+
   build-test:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.2
@@ -20,7 +21,10 @@ jobs:
       - checkout
       - run: sam validate
       - run: sam build
+      - setup_remote_docker
+      - run: sam local invoke getSubjects
       - run: sam deploy
+
   post-output:
     docker:
       - image: cleartone1216/aws-sam-cli:0.0.2
@@ -28,6 +32,7 @@ jobs:
       - checkout
       - run: chmod +x ./.circleci/getResult.sh
       - run: ./.circleci/getResult.sh
+
 workflows:
   version: 2
   test-and-deploy:
