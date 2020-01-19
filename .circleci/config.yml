@@ -22,7 +22,7 @@ jobs:
       - run: sam validate
       - run: sam build
       - setup_remote_docker
-      - run: sam local invoke getSubjects
+      - run: sam local start-api &
       - run: sam deploy
 
   post-output:
