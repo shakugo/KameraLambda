@@ -23,6 +23,7 @@ jobs:
       - run: sam build
       - setup_remote_docker
       - run: sam local start-api &
+      - run: curl http://127.0.0.1:3000/subjects
       - run: sam deploy
 
   post-output:
