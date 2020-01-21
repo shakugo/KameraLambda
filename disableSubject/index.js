@@ -7,7 +7,7 @@ exports.handler = (event, context, callback) => {
   var params = {
     TableName: "subject",
     Key:{//更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-        subject_id: event.subject_id
+        subject_id: event.pathParameters.subject_id
     },
     ExpressionAttributeNames: {
         '#f': 'available_flag'
@@ -34,7 +34,7 @@ exports.handler = (event, context, callback) => {
       response.body = JSON.stringify(err);
     } else {
       response.statusCode = 200;
-      response.body = JSON.stringify(params);
+      response.body = JSON.stringify(data);
     }
     context.done(null, response);
   });
