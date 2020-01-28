@@ -34,7 +34,6 @@ jobs:
 workflows:
   version: 2
   pull-request:
-  test-and-deploy:
     jobs:
       - unit-test
       - build-test:
