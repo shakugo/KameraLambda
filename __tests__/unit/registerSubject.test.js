@@ -24,7 +24,8 @@ describe('Test getAllItemsHandler', () => {
   it('should return params', async () => {
     const items = {
       subject_name: "test_name",
-      subject_id: "test_id"
+      subject_id: "test_id",
+      available_flag: true
     };
 
     // Return the specified value whenever the spied scan function is called
