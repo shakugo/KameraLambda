@@ -1,0 +1,44 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+
+jobs:
+  unit-test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+      - run: npm test
+      - store_test_results:
+          path: coverage
+
+  build-test:
+    docker:
+      - image: cleartone1216/aws-sam-cli:0.0.2
+    steps:
+      - checkout
+      - run: sam validate
+      - run: sam build
+      - run: sam deploy
+
+  post-output:
+    docker:
+      - image: cleartone1216/aws-sam-cli:0.0.2
+    steps:
+      - checkout
+      - run: chmod +x ./.circleci/getResult.sh
+      - run: ./.circleci/getResult.sh
+
+workflows:
+  version: 2
+  pull-request:
+    jobs:
+      - unit-test
+      - build-test:
+          requires:
+            - unit-test
+      - post-output:
+          requires:
+            - build-test

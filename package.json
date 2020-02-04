@@ -6,10 +6,10 @@
     "axios": "^0.18.0"
   },
   "scripts": {
-    "test": "mocha tests/unit/"
+    "test": "jest --coverage"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.1.4"
+    "aws-sdk": "^2.603.0",
+    "jest": "^24.9.0"
   }
 }

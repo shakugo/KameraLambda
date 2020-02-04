@@ -1,13 +1,14 @@
-var AWS = require('aws-sdk');
-var dynamo = new AWS.DynamoDB.DocumentClient({
+const AWS = require('aws-sdk');
+const dynamo = new AWS.DynamoDB.DocumentClient({
   region: 'ap-northeast-1'
 });
 
-exports.handler = (event, context, callback) => {
-  var params = {
+exports.handler = async (event, context) => {
+  const query = event.pathParameters;
+  const params = {
     TableName: "subject",
     Key:{//更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-        subject_id: event.pathParameters.subject_id
+        subject_id: query.subject_id
     },
     ExpressionAttributeNames: {
         '#f': 'available_flag'
@@ -17,25 +18,20 @@ exports.handler = (event, context, callback) => {
     },
     UpdateExpression: 'SET #f = :newFlag'
   };
-  var response = {
+
+  let response = {
     "headers": {},
     "isBase64Encoded": false
   };
 
-  var response = {
-    "headers": {},
-    "isBase64Encoded": false
-  };
+  try {
+    const data = await dynamo.update(params).promise();
+    response.statusCode = 200;
+    response.body = JSON.stringify(params);
+  } catch(e) {
+    response.statusCode = 500;
+    response.body = JSON.stringify(e.message);
+  }
 
-  dynamo.update(params, function (err, data) {
-    if (err) {
-      console.log(err);
-      response.statusCode = 400;
-      response.body = JSON.stringify(err);
-    } else {
-      response.statusCode = 200;
-      response.body = JSON.stringify(data);
-    }
-    context.done(null, response);
-  });
+  return response;
 }

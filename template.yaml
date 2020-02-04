@@ -1,13 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
-Description: An AWS Serverless Specification template describing KameraYohou.
+Transform: AWS::Serverless-2016-10-31
+Description: An AWS Serverless Specification template for KameraYohou.
 
 Globals:
   Function:
     Runtime: nodejs10.x
     Timeout: 3
     MemorySize: 128
-    Description: 'Created by SAM template'
+    Description: Functions Created by SAM template yaml
 
 Resources:
   # API Gateway
@@ -23,7 +23,7 @@ Resources:
 
   # Lambda
   getSubjects:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
       CodeUri: getSubjects
@@ -38,7 +38,7 @@ Resources:
                 Method: GET
                 RestApiId: !Ref kameraApi
   registerSubject:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
       CodeUri: registerSubject
@@ -68,7 +68,7 @@ Resources:
                 Method: DELETE
                 RestApiId: !Ref kameraApi
   getSpots:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
       CodeUri: getSpots
@@ -135,3 +135,11 @@ Resources:
       KeyId: !Ref FlutterApiKey
       KeyType: API_KEY
       UsagePlanId: !Ref FlutterApiUsagePlan
+
+Outputs:
+  ApiGatewayID:
+    Description: The API Gateway ID
+    Value: !Ref kameraApi
+  ApiKeyID:
+    Description: The API Key ID
+    Value: !Ref FlutterApiKey
