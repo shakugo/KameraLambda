@@ -29,7 +29,7 @@ Resources:
       CodeUri: getSubjects
       Policies:
         - DynamoDBReadPolicy:
-            TableName: subject
+            TableName: user
       Events:
         putSubjectApi:
             Type: Api
@@ -44,7 +44,7 @@ Resources:
       CodeUri: registerSubject
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: subject
+            TableName: user
       Events:
         putSubjectApi:
             Type: Api
@@ -59,7 +59,7 @@ Resources:
       CodeUri: disableSubject
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: subject
+            TableName: user
       Events:
         putSubjectApi:
             Type: Api
