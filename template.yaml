@@ -94,12 +94,12 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
-  subject:
+  user:
     Type: AWS::Serverless::SimpleTable
     Properties:
-      TableName: subject
+      TableName: user
       PrimaryKey:
-        Name: subject_id
+        Name: user_id
         Type: String
       ProvisionedThroughput:
         ReadCapacityUnits: 5
