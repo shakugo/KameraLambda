@@ -34,7 +34,7 @@ Resources:
         putSubjectApi:
             Type: Api
             Properties:
-                Path: /subjects
+                Path: /user/{user_id}/subjects
                 Method: GET
                 RestApiId: !Ref kameraApi
   registerSubject:
@@ -49,7 +49,7 @@ Resources:
         putSubjectApi:
             Type: Api
             Properties:
-                Path: /subjects
+                Path: /user/{user_id}/subjects
                 Method: POST
                 RestApiId: !Ref kameraApi
   disableSubject:
@@ -64,7 +64,7 @@ Resources:
         putSubjectApi:
             Type: Api
             Properties:
-                Path: /subjects/{subject_id}
+                Path: /user/{user_id}/subjects/{subject_id}
                 Method: DELETE
                 RestApiId: !Ref kameraApi
   getSpots:
