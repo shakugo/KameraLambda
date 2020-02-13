@@ -64,7 +64,7 @@ Resources:
         putSubjectApi:
             Type: Api
             Properties:
-                Path: /user/{user_id}/subjects/{subject_id}
+                Path: /user/{user_id}/subjects
                 Method: DELETE
                 RestApiId: !Ref kameraApi
   getSpots:

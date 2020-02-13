@@ -5,18 +5,18 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
 
 exports.handler = async (event, context) => {
   const query = event.pathParameters;
+  const obj = JSON.parse(event.body);
+
   const params = {
-    TableName: "subject",
-    Key:{//更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-        subject_id: query.subject_id
-    },
+    TableName: 'user',
+    Key:{ user_id: query.user_id },
     ExpressionAttributeNames: {
-        '#f': 'available_flag'
+        '#s': 'subjects'
     },
     ExpressionAttributeValues: {
-        ':newFlag': false
+      ':newSubject': dynamo.createSet([ obj.subject_name ])
     },
-    UpdateExpression: 'SET #f = :newFlag'
+    UpdateExpression: 'delete #s :newSubject'
   };
 
   let response = {
