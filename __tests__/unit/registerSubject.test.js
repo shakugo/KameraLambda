@@ -5,14 +5,14 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 const lambda = require('../../registerSubject/index.js');
 
 // This includes all tests for getAllItemsHandler
-describe('Test getAllItemsHandler', () => {
+describe('Test add subject in user table', () => {
   let scanSpy;
 
   // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
   beforeAll(() => {
     // Mock DynamoDB scan method
     // https://jestjs.io/docs/en/jest-object.html#jestspyonobject-methodname
-    scanSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'put');
+    scanSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'update');
   });
 
   // Clean up mocks
@@ -22,11 +22,8 @@ describe('Test getAllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return params', async () => {
-    const items = {
-      subject_name: "test_name",
-      subject_id: "test_id",
-      available_flag: true
-    };
+    const user_id = "test_id";
+    const subject_name = "test_name";
 
     // Return the specified value whenever the spied scan function is called
     scanSpy.mockReturnValue({
@@ -34,14 +31,24 @@ describe('Test getAllItemsHandler', () => {
     });
 
     const event = {
-      body: JSON.stringify(items)
+      pathParameters: {
+        user_id: user_id
+      },
+      body: JSON.stringify({subject_name: subject_name})
     };
 
     // Invoke getAllItemsHandler
     const result = await lambda.handler(event);
     const expectedParams = {
-      TableName: 'subject',
-      Item: items
+      TableName: 'user',
+      Key:{ user_id: user_id },
+      ExpressionAttributeNames: {
+          '#s': 'subjects'
+      },
+      ExpressionAttributeValues: {
+          ':newSubject': [ subject_name ]
+      },
+      UpdateExpression: 'add #s :newSubject'
     };
     const expectedResult = {
       statusCode: 200,
@@ -56,10 +63,8 @@ describe('Test getAllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return Error', async () => {
-    const items = {
-      subject_name: "test_name",
-      subject_id: "test_id"
-    };
+    const user_id = "test_id";
+    const subject_name = "test_name";
 
     const message = "something Oops!"
     // Return the specified value whenever the spied scan function is called
@@ -69,7 +74,10 @@ describe('Test getAllItemsHandler', () => {
 
 
     const event = {
-      body: JSON.stringify(items)
+      pathParameters: {
+        user_id: user_id
+      },
+      body: JSON.stringify({subject_name: subject_name})
     };
 
     // Invoke getAllItemsHandler

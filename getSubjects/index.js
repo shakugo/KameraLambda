@@ -4,10 +4,13 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
 });
 
 exports.handler = async (event, context) => {
+  const query = event.pathParameters;
   const params = {
-    TableName: "subject",
-    FilterExpression : "available_flag = :val",
-    ExpressionAttributeValues : {":val" : true}
+    TableName: 'user',
+    Key: {
+      'user_id': query.user_id
+    },
+    ProjectionExpression: 'subjects'
   };
   let response = {
     "headers": {},
@@ -15,7 +18,7 @@ exports.handler = async (event, context) => {
   };
 
   try {
-    const data = await dynamo.scan(params).promise();
+    const data = await dynamo.get(params).promise();
     response.statusCode = 200;
     response.body = JSON.stringify(data);
   }catch(e){

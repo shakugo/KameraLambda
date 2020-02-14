@@ -4,14 +4,19 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
 });
 
 exports.handler = async (event, context) => {
+  const query = event.pathParameters;
   const obj = JSON.parse(event.body);
+
   const params = {
-    TableName: 'subject',
-    Item: {
-      'subject_name': obj.subject_name,
-      'subject_id': obj.subject_id,
-      'available_flag': true,
-    }
+    TableName: 'user',
+    Key:{ user_id: query.user_id },
+    ExpressionAttributeNames: {
+        '#s': 'subjects'
+    },
+    ExpressionAttributeValues: {
+        ':newSubject': dynamo.createSet([ obj.subject_name ])
+    },
+    UpdateExpression: 'add #s :newSubject'
   };
 
   let response = {
@@ -20,7 +25,7 @@ exports.handler = async (event, context) => {
   };
 
   try {
-    const data = await dynamo.put(params).promise();
+    const data = await dynamo.update(params).promise();
     response.statusCode = 200;
     response.body = JSON.stringify(params);
   } catch(e) {

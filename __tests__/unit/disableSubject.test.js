@@ -5,7 +5,7 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 const lambda = require('../../disableSubject/index.js');
 
 // This includes all tests for getAllItemsHandler
-describe('Test AllItemsHandler', () => {
+describe('Test disable subject in user table', () => {
   let scanSpy;
 
   // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
@@ -22,7 +22,8 @@ describe('Test AllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return params', async () => {
-    const subject_id = "test_id";
+    const user_id = "test_id";
+    const subject_name = "test_name";
 
     // Return the specified value whenever the spied scan function is called
     scanSpy.mockReturnValue({
@@ -31,24 +32,25 @@ describe('Test AllItemsHandler', () => {
 
     const event = {
       pathParameters: {
-        subject_id: subject_id
+        user_id: user_id
       },
+      body: JSON.stringify({subject_name: subject_name})
     };
 
     // Invoke getAllItemsHandler
     const result = await lambda.handler(event);
     const expectedParams = {
-      TableName: "subject",
+      TableName: "user",
       Key:{//更新したい項目をプライマリキー(及びソートキー)によって１つ指定
-          subject_id: event.pathParameters.subject_id
+          user_id: event.pathParameters.user_id
       },
       ExpressionAttributeNames: {
-          '#f': 'available_flag'
+        '#s': 'subjects'
       },
       ExpressionAttributeValues: {
-          ':newFlag': false
+        ':newSubject': [ subject_name ]
       },
-      UpdateExpression: 'SET #f = :newFlag'
+      UpdateExpression: 'delete #s :newSubject'
     };
 
     const expectedResult = {
@@ -64,7 +66,8 @@ describe('Test AllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return Error', async () => {
-    const subject_id = "test_id";
+    const user_id = "test_id";
+    const subject_name = "test_name";
     const message = "something Oops!"
     // Return the specified value whenever the spied scan function is called
     scanSpy.mockImplementation(() => {
@@ -73,8 +76,9 @@ describe('Test AllItemsHandler', () => {
 
     const event = {
       pathParameters: {
-        subject_id: subject_id
+        user_id: user_id
       },
+      body: JSON.stringify({subject_name: subject_name})
     };
 
     // Invoke getAllItemsHandler
