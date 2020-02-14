@@ -6,10 +6,13 @@
     "axios": "^0.18.0"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:codecov": "jest --coverage && codecov"
   },
   "devDependencies": {
     "aws-sdk": "^2.603.0",
+    "codecov": "^3.6.5",
     "jest": "^24.9.0"
   }
 }
