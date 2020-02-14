@@ -21,7 +21,7 @@ jobs:
       - checkout
       - run: sam validate
       - run: sam build
-      - run: sam deploy
+      - run: sam deploy --no-fail-on-empty-changeset
 
   post-output:
     docker:
