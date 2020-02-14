@@ -9,13 +9,16 @@ describe('Test getAllItemsHandler', () => {
   let scanSpy;
   const event = {
     httpMethod: 'GET',
+    pathParameters: {
+      user_id: 'test_id'
+    }
   };
 
   // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
   beforeAll(() => {
     // Mock DynamoDB scan method
     // https://jestjs.io/docs/en/jest-object.html#jestspyonobject-methodname
-    scanSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'scan');
+    scanSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'get');
   });
 
   // Clean up mocks
@@ -26,11 +29,9 @@ describe('Test getAllItemsHandler', () => {
   // This test invokes getAllItemsHandler and compares the result
   it('should return ids', async () => {
     const items = {
-      Items: [{
-        id: 'id1'
-      }, {
-        id: 'id2'
-      }]
+      Items: {
+        "subjects": [ "aaaa", "bbbb" ]
+      }
     };
 
     // Return the specified value whenever the spied scan function is called
