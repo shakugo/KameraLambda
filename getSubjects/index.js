@@ -3,7 +3,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
   region: 'ap-northeast-1'
 });
 
-exports.handler = async (event, context) => {
+exports.handler = async (event) => {
   const query = event.pathParameters;
   const params = {
     TableName: 'user',

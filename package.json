@@ -7,10 +7,12 @@
   },
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint": "eslint"
   },
   "devDependencies": {
     "aws-sdk": "^2.603.0",
+    "eslint": "^6.8.0",
     "jest": "^24.9.0"
   }
 }
