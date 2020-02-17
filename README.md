@@ -37,7 +37,7 @@ RESPONSE BODY:
 }
 ```
 
-### GET /user/{user_id}/subject
+### GET /user/{user_id}/subjects
 > ./getSubjects/index.js
 
 RESPONSE BODY:
@@ -49,7 +49,7 @@ RESPONSE BODY:
 ```
 
 
-### POST /user/{user_id}/subject
+### POST /user/{user_id}/subjects
 > ./registerSubject/index.js
 
 REQUEST BODY:
@@ -65,7 +65,7 @@ TBD
 ```
 
 
-### DELETE /user/{user_id}/subject
+### PUT /user/{user_id}/subjects
 > ./disableSubject/index.js
 
 REQUEST BODY:
