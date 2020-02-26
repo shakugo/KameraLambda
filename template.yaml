@@ -65,7 +65,7 @@ Resources:
             Type: Api
             Properties:
                 Path: /user/{user_id}/subjects
-                Method: DELETE
+                Method: PUT
                 RestApiId: !Ref kameraApi
   getSpots:
     Type: AWS::Serverless::Function
