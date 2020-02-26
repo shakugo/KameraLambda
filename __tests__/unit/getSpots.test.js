@@ -7,9 +7,6 @@ const lambda = require('../../getSpots/index.js');
 // This includes all tests for getAllItemsHandler
 describe('Test getAllItemsHandler', () => {
   let scanSpy;
-  const event = {
-    httpMethod: 'GET',
-  };
 
   // One-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown
   beforeAll(() => {
@@ -25,6 +22,10 @@ describe('Test getAllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return ids', async () => {
+    const event = {
+      httpMethod: 'POST',
+      body: '{\"subjects\":[\"test1\",\"test2\"]}'
+    };
     const items = {
       Items: [{
         id: 'id1'
@@ -54,6 +55,11 @@ describe('Test getAllItemsHandler', () => {
 
   // This test invokes getAllItemsHandler and compares the result
   it('should return Error', async () => {
+    const event = {
+      httpMethod: 'POST',
+      body: '{\"subjects\":[\"test1\",\"test2\"]}'
+    };
+
     const message = "something Oops!"
     // Return the specified value whenever the spied scan function is called
     scanSpy.mockImplementation(() => { throw new Error(message)});
