@@ -53,6 +53,40 @@ describe('Test getAllItemsHandler', () => {
     expect(result).toEqual(expectedResult);
   });
 
+  // This test invokes getAllItemsHandler with empty body
+  it('should return ids', async () => {
+    const event = {
+      httpMethod: 'POST',
+      body: '{\"subjects\":[]}'
+    };
+    const items = {
+      Items: [{
+        id: 'id1'
+      }, {
+        id: 'id2'
+      }]
+    };
+
+    // Return the specified value whenever the spied scan function is called
+    scanSpy.mockReturnValue({
+      promise: () => Promise.resolve(items),
+    });
+
+    // Invoke getAllItemsHandler
+    const result = await lambda.handler(event);
+
+    const expectedResult = {
+      headers: {},
+      statusCode: 200,
+      "isBase64Encoded": false,
+      body: JSON.stringify(items),
+    };
+
+    // Compare the result with the expected result
+    expect(result).toEqual(expectedResult);
+  });
+
+
   // This test invokes getAllItemsHandler and compares the result
   it('should return Error', async () => {
     const event = {

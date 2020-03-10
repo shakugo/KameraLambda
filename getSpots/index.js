@@ -6,23 +6,23 @@ const dynamo = new AWS.DynamoDB.DocumentClient({
 exports.handler = async (event, context) => {
   const obj = JSON.parse(event.body);
   const subjectList = obj.subjects;
-  let filter = '';
-  let attributeValues = {};
+  let params = { TableName: "spot" };
 
-  subjectList.forEach((subject, index) => {
-    filter += 'contains(#subjects, :subject' + index +') OR ';
-    attributeValues[":subject" + index] = subject;
-  });
-  filter = filter.slice(0, -4);
+  if(Array.isArray(subjectList) && subjectList.length > 0){
+    let filter = '';
+    let attributeValues = {};
 
-  const params = {
-    TableName: "spot",
-    ExpressionAttributeNames: {
-      "#subjects": "subjects",
-    },
-    ExpressionAttributeValues: attributeValues,
-    FilterExpression: filter,
-  };
+    subjectList.forEach((subject, index) => {
+      filter += 'contains(#subjects, :subject' + index +') OR ';
+      attributeValues[":subject" + index] = subject;
+    });
+    filter = filter.slice(0, -4);
+
+    params["ExpressionAttributeNames"] = {"#subjects": "subjects"}
+    params["ExpressionAttributeValues"] = attributeValues
+    params["FilterExpression"] = filter
+  }
+
   let response = {
     "headers": {},
     "isBase64Encoded": false
